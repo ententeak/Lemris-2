@@ -1,0 +1,5 @@
+{
+  "name": "Lemmris 2",
+  "description": "A unique hybrid of Tetris and Lemmings. Clear lines to spawn Lemmings, but don't crush them! Lemmings multiply your score but their deaths carry heavy penalties.",
+  "requestFramePermissions": []
+}

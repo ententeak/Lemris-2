@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lemmris 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            overflow: hidden;
+            touch-action: none;
+        }
+        
+        .lemming-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Transition odstraněn - kolidoval s React state updates a způsoboval třes */
+            will-change: left, top;
+        }
+
+        @keyframes lemming-wobble {
+            0% { transform: rotate(-8deg) translateY(0); }
+            50% { transform: rotate(8deg) translateY(-3px); }
+            100% { transform: rotate(-8deg) translateY(0); }
+        }
+
+        @keyframes lemming-stretch {
+            0% { transform: scaleY(1.3) scaleX(0.7); }
+            100% { transform: scaleY(1.6) scaleX(0.6); }
+        }
+
+        .anim-walk {
+            animation: lemming-wobble 0.25s infinite ease-in-out;
+        }
+
+        .anim-fall {
+            animation: lemming-stretch 0.08s infinite alternate ease-in-out;
+        }
+
+        .blood-splatter {
+            background: radial-gradient(circle, rgba(239,68,68,1) 0%, rgba(153,27,27,0.8) 40%, rgba(127,29,29,0) 85%);
+            animation: splatter-fade 3s forwards cubic-bezier(0, 0, 0.2, 1);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        @keyframes splatter-fade {
+            0% { transform: scale(0.2); opacity: 1; filter: blur(1px); }
+            10% { transform: scale(1.6); opacity: 0.9; filter: blur(0px); }
+            100% { transform: scale(1.3); opacity: 0; filter: blur(2px); }
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+  }
+}
+</script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
