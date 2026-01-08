@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { COLS, ROWS, SHAPES, DIFFICULTY_SPEEDS, MAX_LEMMINGS } from '../constants';
-import { ShapeType, Difficulty, Pos, Lemming, ActivePiece, BloodStain } from '../types';
+import { Difficulty, type ShapeType, type Pos, type Lemming, type ActivePiece, type BloodStain } from '../types';
 import GameUI from './GameUI';
 
 interface GameEngineProps {
@@ -60,7 +60,7 @@ const GameEngine: React.FC<GameEngineProps> = ({ difficulty, onGameOver, onExit 
 
   const calculatePenalty = (kills: number) => {
     if (kills === 0) return 0;
-    return Math.floor(Math.pow(kills, 4.2) * 20); // Zpřísněná penalizace
+    return Math.floor(Math.pow(kills, 4.2) * 20); 
   };
 
   const lockPiece = useCallback((targetPiece?: ActivePiece) => {
@@ -80,7 +80,7 @@ const GameEngine: React.FC<GameEngineProps> = ({ difficulty, onGameOver, onExit 
     setLemmings(prev => {
       const survivors = prev.filter(lem => {
         const lx = Math.round(lem.x);
-        const ly = Math.floor(lem.y + 0.1); // Malý offset pro přesnější detekci "uvnitř" kostky
+        const ly = Math.floor(lem.y + 0.1);
         const isCrushed = occupied.has(`${lx},${ly}`);
         if (isCrushed) {
           killsNow++;
@@ -241,7 +241,6 @@ const GameEngine: React.FC<GameEngineProps> = ({ difficulty, onGameOver, onExit 
         setLemmings(prev => {
           let isAnyoneFalling = false;
           
-          // Pokud nejsou žádní lemmingové, rovnou zrušíme čekání
           if (prev.length === 0 && isWaitingForLemmings) {
             setIsWaitingForLemmings(false);
           }
@@ -249,7 +248,6 @@ const GameEngine: React.FC<GameEngineProps> = ({ difficulty, onGameOver, onExit 
           const filtered = prev.filter(lem => {
             const checkX = Math.round(lem.x);
             const checkY = Math.floor(lem.y + 0.1);
-            // Pokud lemming propadl do obsazeného bloku, eliminujeme ho
             if (checkY >= 0 && checkY < ROWS && grid[checkY][checkX] !== null) {
                 setTotalKills(tk => tk + 1);
                 setScore(s => s - calculatePenalty(1));
@@ -263,7 +261,6 @@ const GameEngine: React.FC<GameEngineProps> = ({ difficulty, onGameOver, onExit 
             const currentX = Math.round(lem.x);
             const currentY = Math.floor(lem.y + 0.1);
             
-            // Hledání země
             let groundY = ROWS;
             for (let y = Math.max(0, currentY + 1); y < ROWS; y++) {
                 if (grid[y][currentX] !== null) {
@@ -272,14 +269,13 @@ const GameEngine: React.FC<GameEngineProps> = ({ difficulty, onGameOver, onExit 
                 }
             }
 
-            const fallStep = 0.6; // Mírně pomalejší pád pro lepší stabilitu
+            const fallStep = 0.6;
             const targetY = groundY - 1;
 
             if (lem.y < targetY - 0.05) {
               isAnyoneFalling = true;
               return { ...lem, isFalling: true, y: Math.min(targetY, lem.y + fallStep) };
             } else {
-              // Chůze na zemi
               const walkStep = 0.07;
               const nextX = Math.round(lem.x + (lem.direction * walkStep));
               const isWall = nextX < 0 || nextX >= COLS || grid[targetY][nextX] !== null;
@@ -287,7 +283,7 @@ const GameEngine: React.FC<GameEngineProps> = ({ difficulty, onGameOver, onExit 
               return {
                 ...lem,
                 isFalling: false,
-                y: targetY, // Pevné přichycení k řádku
+                y: targetY,
                 direction: isWall ? (lem.direction * -1) as (1 | -1) : lem.direction,
                 x: isWall ? lem.x : lem.x + (lem.direction * walkStep)
               };

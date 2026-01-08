@@ -4,7 +4,7 @@ import StartScreen from './components/StartScreen';
 import GameEngine from './components/GameEngine';
 import Leaderboard from './components/Leaderboard';
 import GameOverDialog from './components/GameOverDialog';
-import { Difficulty, ScoreEntry } from './types';
+import { Difficulty, type ScoreEntry } from './types';
 
 const App: React.FC = () => {
   const [view, setView] = useState<'menu' | 'game' | 'leaderboard'>('menu');
