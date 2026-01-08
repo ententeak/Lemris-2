@@ -1,6 +1,6 @@
 
 import React, { useMemo } from 'react';
-import { ScoreEntry } from '../types';
+import type { ScoreEntry } from '../types';
 
 interface LeaderboardProps {
   onBack: () => void;

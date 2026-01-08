@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { COLS, ROWS, MAX_LEMMINGS, SHAPES } from '../constants';
-import { Lemming, ActivePiece, Difficulty, ShapeType, BloodStain } from '../types';
+import type { Lemming, ActivePiece, Difficulty, ShapeType, BloodStain } from '../types';
 
 interface GameUIProps {
   grid: (string | null)[][];
@@ -24,7 +24,7 @@ interface GameUIProps {
 }
 
 const GameUI: React.FC<GameUIProps> = ({ 
-  grid, activePiece, nextType, lemmings, bloodStains, score, totalKills, isPaused, isWaiting, onPauseToggle, onExit, difficulty,
+  grid, activePiece, nextType, lemmings, bloodStains, score, totalKills, isPaused, isWaiting, onPauseToggle, onExit,
   onMoveLeft, onMoveRight, onMoveDown, onRotate, onDrop
 }) => {
   return (

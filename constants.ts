@@ -1,5 +1,5 @@
 
-import { ShapeType, Difficulty } from './types';
+import { Difficulty, type ShapeType } from './types';
 
 export const COLS = 10;
 export const ROWS = 20;

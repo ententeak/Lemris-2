@@ -19,18 +19,20 @@ export interface BloodStain extends Pos {
   timestamp: number;
 }
 
+export const Difficulty = {
+  EASY: 'Lehká',
+  MEDIUM: 'Střední',
+  HARD: 'Těžká'
+} as const;
+
+export type Difficulty = (typeof Difficulty)[keyof typeof Difficulty];
+
 export interface ScoreEntry {
   name: string;
   score: number;
   kills: number;
   difficulty: Difficulty;
   date: string;
-}
-
-export enum Difficulty {
-  EASY = 'Lehká',
-  MEDIUM = 'Střední',
-  HARD = 'Těžká'
 }
 
 export interface GameState {
